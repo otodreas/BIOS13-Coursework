@@ -8,10 +8,6 @@
 v1 <- seq(1, 7, by=0.5)
 v2 <- v1[c(3, 4, 11)]
 v2[v2 > 2] <- 0
-print(v2)  # in this case, "print" works too, but it prints with leading [1]
+cat(v2)  # in this case, "print" works too, but it prints with leading [1]
 
-# DOCS ON RUN VS SOURCE
-# The difference between running lines from a selection and invoking Source is
-# that when running a selection all lines are inserted directly into the console
-# whereas for Source the file is saved to a temporary location and then sourced
-# into the console from there (thereby creating less clutter in the console).
+# Running using source keeps the console clean
