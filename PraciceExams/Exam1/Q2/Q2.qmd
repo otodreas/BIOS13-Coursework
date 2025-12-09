@@ -1,0 +1,65 @@
+---
+title: "Q2"
+---
+
+# Dynamics of a spatially structured population
+
+## Install and mount packages
+
+```{r}
+install.packages("here"); library(here)
+```
+
+## Part A: non-trivial equilibrium population size
+
+The equilibrium population sizes are defined as the values of $n_1$ for which the change in population size over time $\frac{dn_1}{dt} = 0$. For this condition to be true, one of the two terms $r_1 - k n_1^2$ or $n_1$ must equal $0$, since their product is the change in population size over time $\frac{dn_1}{dt}$.
+
+The non-trivial solution is therefore
+
+$$
+r_1 - k n_1^2 = 0 \Rightarrow n_1 = \sqrt{\frac{r_1}{k}}
+$$
+
+## Part B: prove stability of equilibrium
+
+For the equilibrium to be stable, the first derivative of the model (the second derivative if the model represents population rather than change in population) must be negative. If this condition is met, population sizes immediately below the equilibrium will have a positive $\frac{dn_1}{dt}$, meaning that the population will grow towards the equilibrium size, while population sizes immediately above the equilibrium will have a negative $\frac{dn_1}{dt}$ and shrink towards the equilibrium size.
+
+To determine the stability of the equilibrium, we first rearrange $\frac{dn_1}{dt}$ at the non-trivial equilibrium, where (I've "renamed" it to $f'(n_1)$ for clarity).
+
+$$
+\begin{align}
+    f'(n_1) &= \left(r_1 - k \sqrt{\frac{r_1}{k}} \right) \sqrt{\frac{r_1}{k}} \\
+    &= r_1 \sqrt{\frac{r_1}{k}} - k \frac{r_1}{k} \\
+    &= r_1 \left(r_1^{\frac{1}{2}} k^{\frac{-1}{2}} \right) - k \left(r_1 k^{\frac{-1}{2}} \right) \\
+    &= r_1^{\frac{3}{2}} k^{\frac{-1}{2}} - k^{\frac{1}{2}} r_1
+\end{align}
+$$
+
+We can now get the second derivative $f''(n_1)$
+
+$$
+\begin{align}
+    f''(n_1) &= \frac{3}{2} r_1^{\frac{1}{2}} \times \frac{-1}{2} k^{\frac{-3}{2}} - \frac{1}{2} k^{\frac{-1}{2}} \times 1 \\
+    &= - \frac{3 \sqrt{r_1}}{4 \sqrt{k^3}} - \frac{1}{2 \sqrt{k}}
+\end{align}
+$$
+
+Since both $r_1$ and $k$ are positive, both terms of $f''(n_1)$ are negative, and since the exponentiation performed on $r_1$ and $k$ cannot produce a negative result, there are no possible values for $r_1$ and $k$ that could make $f''(n_1)$ positive. Therefore $$
+f''(n_1) < 0
+$$
+
+When
+
+$$
+n_1 = \sqrt{\frac{r_1}{k}}
+$$
+
+Thus, the non-trivial equilibrium is stable.
+
+## Part C: plot $\frac{dn}{dt}$
+
+text
+
+```{r}
+print("hello")
+```
