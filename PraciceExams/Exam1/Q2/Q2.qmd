@@ -4,7 +4,7 @@
 
 The equilibrium population sizes are defined as the values of $n_1$ for which the change in population size over time $\frac{dn_1}{dt} = 0$. For this condition to be true, one of the two terms $r_1 - k n_1^2$ or $n_1$ must equal $0$, since their product is the change in population size over time $\frac{dn_1}{dt}$.
 
-The non-trivial solution is therefore
+Thus, the non-trivial solution is
 
 $$
 r_1 - k n_1^2 = 0 \Rightarrow n_1 = \sqrt{\frac{r_1}{k}}
@@ -56,10 +56,10 @@ rm(list = ls())
 
 # Parameters
 r1 <- 60
-k <- .03
+k <- 0.03
 
 # Vector of population sizes
-n1 <- seq(0, 100, by = 1)
+n1 <- seq(0, 100)
 
 # Vector to store population change at each population size
 dndt <- n1
@@ -106,3 +106,61 @@ $$
 Thus, when the size of population 1 is $\sqrt{\frac{m - r_1}{-k}}$, the population is in equilibrium.
 
 ## Part F: Value of *m* where population 1 goes extinct
+
+For a given population size $n_1$, the parameter $m$ must be large enough to make $\frac{dn_1}{dt}$ negative. Thus, the term $m n_1$ must be greater than the term $\left(r_1 - k n_^2 \right) n_1$. We can solve by asserting the equation below and solving for $m$.
+
+$$
+\begin{align}
+    m n_1 &> \left( r_1 - k n_1^2 \right) n_1 \\
+    m &> r_1 - k n_1^2
+\end{align}
+$$
+
+Thus, if $m > r_1 - k n_1^2$, the population goes extinct.
+
+## Part G: Simulate coupled dynamics
+
+```{r}
+# Clear variables
+rm(list = ls())
+
+# Install and mount packages
+# install.packages("deSolve")
+library(deSolve)
+
+# Assign starting state values
+y <- list(700, 400)
+names(y) <- c("n1", "n2")
+
+# Assign vector containing time sequence
+times <- seq(0, 100)
+
+# Assign parameters
+params <- list(50, 60, 0.03, 0.1)
+names(params) <- c("r2", "r1", "k", "m")
+
+# Assign empty list in which to store ODE outputs
+outs <- list(0, 0)
+names(outs) <- c("Pop1", "Pop2")
+
+# Assign function to compute values of derivatives in system
+func <- function(y, r, k, m) {
+    dn1dt <- (r1 - k * n1 ** 2) * n1 - m * n1
+    dn2dt <- (r2 - k * n2 ** 2) * n2 - m * n1
+    derivatives <- list(dn1dt, dn2dt)
+    names(derivatives) <- c("dn1dt", "dn2dt")
+    return(derivatives)
+}
+
+# Run ODE solver for both populations
+for (i in 1:2) outs[i] <- ode(y[[i]], times, func, params[-i])
+
+# Plot
+plot(
+    times, outs[1], type = "l" main = "Populations over time",
+    xlab = "Time", ylab = "Population size", col = "blue"
+)
+
+# Clear variables
+rm(list = ls())
+```
