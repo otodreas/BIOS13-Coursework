@@ -128,39 +128,31 @@ rm(list = ls())
 # install.packages("deSolve")
 library(deSolve)
 
-# Assign starting state values
-y <- list(700, 400)
-names(y) <- c("n1", "n2")
+# Assign starting state values to vector y
+y <- c(n1 = 4, n2 = 2)
 
 # Assign vector containing time sequence
-times <- seq(0, 100)
+times <- seq(0, 10)
 
-# Assign parameters
-params <- list(50, 60, 0.03, 0.1)
-names(params) <- c("r2", "r1", "k", "m")
-
-# Assign empty list in which to store ODE outputs
-outs <- list(0, 0)
-names(outs) <- c("Pop1", "Pop2")
+# Assign parameters to global environment
+params <- c(r1 = 3, r2 = 0.75, k = 0.03, m = 3)
 
 # Assign function to compute values of derivatives in system
-func <- function(y, r, k, m) {
-    dn1dt <- (r1 - k * n1 ** 2) * n1 - m * n1
-    dn2dt <- (r2 - k * n2 ** 2) * n2 - m * n1
-    derivatives <- list(dn1dt, dn2dt)
-    names(derivatives) <- c("dn1dt", "dn2dt")
-    return(derivatives)
+func <- function(t, state, params) {
+    with(as.list(c(state, params)), {
+        dn1dt <- (r1 - k * n1 ** 2) * n1 - m * n1
+        dn2dt <- (r2 - k * n2 ** 2) * n2 - m * n1  # Is this right? n1 in this equation means pop can go below 0
+        return(list(c(dn1dt, dn2dt)))
+    })
 }
 
 # Run ODE solver for both populations
-for (i in 1:2) outs[i] <- ode(y[[i]], times, func, params[-i])
+out <- ode(y, times, func, params)
 
 # Plot
 plot(
-    times, outs[1], type = "l" main = "Populations over time",
-    xlab = "Time", ylab = "Population size", col = "blue"
+    out[,1], out[,2], type = "l", ylim = c(min(out[,2], out[,3]), max(out[,2], out[,3])),
+    main = "Populations over time", xlab = "Time", ylab = "Population size", col = "red"
 )
-
-# Clear variables
-rm(list = ls())
+points(out[,1], out[,3], type = "l", col = "blue")
 ```
