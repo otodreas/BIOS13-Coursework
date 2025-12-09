@@ -1,16 +1,6 @@
----
-title: "Q2"
----
-
 # Dynamics of a spatially structured population
 
-## Install and mount packages
-
-```{r}
-install.packages("here"); library(here)
-```
-
-## Part A: non-trivial equilibrium population size
+## Part A: Non-trivial equilibrium population size
 
 The equilibrium population sizes are defined as the values of $n_1$ for which the change in population size over time $\frac{dn_1}{dt} = 0$. For this condition to be true, one of the two terms $r_1 - k n_1^2$ or $n_1$ must equal $0$, since their product is the change in population size over time $\frac{dn_1}{dt}$.
 
@@ -20,7 +10,7 @@ $$
 r_1 - k n_1^2 = 0 \Rightarrow n_1 = \sqrt{\frac{r_1}{k}}
 $$
 
-## Part B: prove stability of equilibrium
+## Part B: Prove stability of equilibrium
 
 For the equilibrium to be stable, the first derivative of the model (the second derivative if the model represents population rather than change in population) must be negative. If this condition is met, population sizes immediately below the equilibrium will have a positive $\frac{dn_1}{dt}$, meaning that the population will grow towards the equilibrium size, while population sizes immediately above the equilibrium will have a negative $\frac{dn_1}{dt}$ and shrink towards the equilibrium size.
 
@@ -44,7 +34,9 @@ $$
 \end{align}
 $$
 
-Since both $r_1$ and $k$ are positive, both terms of $f''(n_1)$ are negative, and since the exponentiation performed on $r_1$ and $k$ cannot produce a negative result, there are no possible values for $r_1$ and $k$ that could make $f''(n_1)$ positive. Therefore $$
+Since both $r_1$ and $k$ are positive, both terms of $f''(n_1)$ are negative, and since the exponentiation performed on $r_1$ and $k$ cannot produce a negative result, there are no possible values for $r_1$ and $k$ that could make $f''(n_1)$ positive. Therefore
+
+$$
 f''(n_1) < 0
 $$
 
@@ -56,10 +48,56 @@ $$
 
 Thus, the non-trivial equilibrium is stable.
 
-## Part C: plot $\frac{dn}{dt}$
-
-text
+## Part C: Plot $\frac{dn}{dt}$
 
 ```{r}
-print("hello")
+# Parameters
+r1 <- 60
+k <- .03
+
+# Vector of population sizes
+n1 <- seq(0, 100, by = 1)
+
+# Vector to store population change at each population size
+dndt <- n1
+
+# Loop through values of n, update corresponding dndt
+for (i in seq_along(n)) dndt[i] <- (r1 - k * n1[i] ** 2) * n1[i]
+
+# Plot
+plot(
+    n1, dndt, type = "l", main = "Dynamics of\npopulation 1",
+    xlab = "Population size", ylab = "Derivative of population size"
+)
 ```
+
+## Part D: Write new equations
+
+Since $m$ individuals leave population 1 for population 2 per unit time, the system of equations that describes the population dynamics of $n_1$ and $n_2$ is defined as
+
+$$
+\begin{cases}
+\begin{align}
+    \frac{dn_1}{dt} &= \left( r_1 - k n_1^2 \right) n_1 - m n_1 \\
+    \frac{dn_2}{dt} &= \left( r_2 - k n_2^2 \right) n_2 + m n_1
+\end{align}
+\end{cases}
+$$
+
+## Part E: New equilibrium of population 1
+
+Since the equilibrium is defined as the value of $n_1$ when $\frac{dn_1}{dt} = 0$, we assert the equation below and solve for $n_1$.
+
+$$
+\begin{align}
+    0 &= \left( r_1 - k n_1^2 \right) n_1 - m n_1 \\
+    \left( r_1 - k n_1^2 \right) n_1 &= m n_1 \\
+    r_1 - k n_1^2 &= m \\
+    n_1 &= \sqrt{\frac{m - r_1}{-k}}
+\end{align}
+$$
+
+Thus, when the size of population 1 is $\sqrt{\frac{m - r_1}{-k}}$, the population is in equilibrium.
+
+## Part F: Value of *m* where population 1 goes extinct
+
