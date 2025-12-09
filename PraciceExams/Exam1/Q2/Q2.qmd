@@ -51,6 +51,9 @@ Thus, the non-trivial equilibrium is stable.
 ## Part C: Plot $\frac{dn}{dt}$
 
 ```{r}
+# Clear variables
+rm(list = ls())
+
 # Parameters
 r1 <- 60
 k <- .03
@@ -62,13 +65,16 @@ n1 <- seq(0, 100, by = 1)
 dndt <- n1
 
 # Loop through values of n, update corresponding dndt
-for (i in seq_along(n)) dndt[i] <- (r1 - k * n1[i] ** 2) * n1[i]
+for (i in seq_along(n1)) dndt[i] <- (r1 - k * n1[i] ** 2) * n1[i]
 
 # Plot
 plot(
     n1, dndt, type = "l", main = "Dynamics of\npopulation 1",
     xlab = "Population size", ylab = "Derivative of population size"
 )
+
+# Clear variables
+rm(list = ls())
 ```
 
 ## Part D: Write new equations
@@ -90,7 +96,7 @@ Since the equilibrium is defined as the value of $n_1$ when $\frac{dn_1}{dt} = 0
 
 $$
 \begin{align}
-    0 &= \left( r_1 - k n_1^2 \right) n_1 - m n_1 \\
+    \left( r_1 - k n_1^2 \right) n_1 - m n_1 &= 0 \\
     \left( r_1 - k n_1^2 \right) n_1 &= m n_1 \\
     r_1 - k n_1^2 &= m \\
     n_1 &= \sqrt{\frac{m - r_1}{-k}}
@@ -100,4 +106,3 @@ $$
 Thus, when the size of population 1 is $\sqrt{\frac{m - r_1}{-k}}$, the population is in equilibrium.
 
 ## Part F: Value of *m* where population 1 goes extinct
-
