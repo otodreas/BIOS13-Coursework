@@ -1,0 +1,302 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  a4paper,
+]{report}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Q2},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Q2}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+
+
+\chapter{Dynamics of a spatially structured
+population}\label{dynamics-of-a-spatially-structured-population}
+
+\section{Part A: Non-trivial equilibrium population
+size}\label{part-a-non-trivial-equilibrium-population-size}
+
+The equilibrium population sizes are defined as the values of \(n_1\)
+for which the change in population size over time
+\(\frac{dn_1}{dt} = 0\). For this condition to be true, one of the two
+terms \(r_1 - k n_1^2\) or \(n_1\) must equal \(0\), since their product
+is the change in population size over time \(\frac{dn_1}{dt}\).
+
+Thus, the non-trivial solution is
+
+\[
+r_1 - k n_1^2 = 0 \Rightarrow n_1 = \sqrt{\frac{r_1}{k}}
+\]
+
+\section{Part B: Prove stability of
+equilibrium}\label{part-b-prove-stability-of-equilibrium}
+
+For the equilibrium to be stable, the first derivative of the model (the
+second derivative if the model represents population rather than change
+in population) must be negative. If this condition is met, population
+sizes immediately below the equilibrium will have a positive
+\(\frac{dn_1}{dt}\), meaning that the population will grow towards the
+equilibrium size, while population sizes immediately above the
+equilibrium will have a negative \(\frac{dn_1}{dt}\) and shrink towards
+the equilibrium size.
+
+To determine the stability of the equilibrium, we first rearrange
+\(\frac{dn_1}{dt}\) at the non-trivial equilibrium, where (I've
+``renamed'' it to \(f'(n_1)\) for clarity).
+
+\[
+\begin{align}
+    f'(n_1) &= \left(r_1 - k \sqrt{\frac{r_1}{k}} \right) \sqrt{\frac{r_1}{k}} \\
+    &= r_1 \sqrt{\frac{r_1}{k}} - k \frac{r_1}{k} \\
+    &= r_1 \left(r_1^{\frac{1}{2}} k^{\frac{-1}{2}} \right) - k \left(r_1 k^{\frac{-1}{2}} \right) \\
+    &= r_1^{\frac{3}{2}} k^{\frac{-1}{2}} - k^{\frac{1}{2}} r_1
+\end{align}
+\]
+
+We can now get the second derivative \(f''(n_1)\)
+
+\[
+\begin{align}
+    f''(n_1) &= \frac{3}{2} r_1^{\frac{1}{2}} \times \frac{-1}{2} k^{\frac{-3}{2}} - \frac{1}{2} k^{\frac{-1}{2}} \times 1 \\
+    &= - \frac{3 \sqrt{r_1}}{4 \sqrt{k^3}} - \frac{1}{2 \sqrt{k}}
+\end{align}
+\]
+
+Since both \(r_1\) and \(k\) are positive, both terms of \(f''(n_1)\)
+are negative, and since the exponentiation performed on \(r_1\) and
+\(k\) cannot produce a negative result, there are no possible values for
+\(r_1\) and \(k\) that could make \(f''(n_1)\) positive. Therefore
+
+\[
+f''(n_1) < 0
+\]
+
+When
+
+\[
+n_1 = \sqrt{\frac{r_1}{k}}
+\]
+
+Thus, the non-trivial equilibrium is stable.
+
+\section{\texorpdfstring{Part C: Plot
+\(\frac{dn}{dt}\)}{Part C: Plot \textbackslash frac\{dn\}\{dt\}}}\label{part-c-plot-fracdndt}
+
+The answer is provided in \texttt{Scripts/2C.R}.
+
+\section{Part D: Write new equations}\label{part-d-write-new-equations}
+
+Since \(m\) individuals leave population 1 for population 2 per unit
+time, the system of equations that describes the population dynamics of
+\(n_1\) and \(n_2\) is defined as
+
+\[
+\begin{cases}
+\begin{align}
+    \frac{dn_1}{dt} &= \left( r_1 - k n_1^2 \right) n_1 - m n_1 \\
+    \frac{dn_2}{dt} &= \left( r_2 - k n_2^2 \right) n_2 + m n_1
+\end{align}
+\end{cases}
+\]
+
+\section{Part E: New equilibrium of population
+1}\label{part-e-new-equilibrium-of-population-1}
+
+Since the equilibrium is defined as the value of \(n_1\) when
+\(\frac{dn_1}{dt} = 0\), we assert the equation below and solve for
+\(n_1\).
+
+\[
+\begin{align}
+    \left( r_1 - k n_1^2 \right) n_1 - m n_1 &= 0 \\
+    \left( r_1 - k n_1^2 \right) n_1 &= m n_1 \\
+    r_1 - k n_1^2 &= m \\
+    n_1 &= \sqrt{\frac{m - r_1}{-k}}
+\end{align}
+\]
+
+Thus, when the size of population 1 is \(\sqrt{\frac{m - r_1}{-k}}\),
+the population is in equilibrium.
+
+\section{\texorpdfstring{Part F: Value of \(m\) where population 1 goes
+extinct}{Part F: Value of m where population 1 goes extinct}}\label{part-f-value-of-m-where-population-1-goes-extinct}
+
+For a given population size \(n_1\), the parameter \(m\) must be large
+enough to make \(\frac{dn_1}{dt}\) negative. Thus, the term \(m n_1\)
+must be greater than the term \(\left(r_1 - k n_1^2 \right) n_1\). We
+can solve by asserting the equation below and solving for \(m\).
+
+\[
+\begin{align}
+    m n_1 &> \left( r_1 - k n_1^2 \right) n_1 \\
+    m &> r_1 - k n_1^2
+\end{align}
+\]
+
+Thus, if \(m > r_1 - k n_1^2\), the population goes extinct.
+
+\section{Part G: Simulate coupled
+dynamics}\label{part-g-simulate-coupled-dynamics}
+
+The answer is provided in \texttt{Scripts/2G.R}.
+
+
+
+
+\end{document}

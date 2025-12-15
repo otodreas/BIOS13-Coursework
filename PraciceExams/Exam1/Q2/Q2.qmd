@@ -1,3 +1,14 @@
+---
+title: "Q2"
+format:
+  pdf:
+    documentclass: report
+    papersize: a4
+    toc: false
+    number-sections: false
+    colorlinks: true
+---
+
 # Dynamics of a spatially structured population
 
 ## Part A: Non-trivial equilibrium population size
@@ -50,32 +61,7 @@ Thus, the non-trivial equilibrium is stable.
 
 ## Part C: Plot $\frac{dn}{dt}$
 
-```{r}
-# Clear variables
-rm(list = ls())
-
-# Parameters
-r1 <- 60
-k <- 0.03
-
-# Vector of population sizes
-n1 <- seq(0, 100)
-
-# Vector to store population change at each population size
-dndt <- n1
-
-# Loop through values of n, update corresponding dndt
-for (i in seq_along(n1)) dndt[i] <- (r1 - k * n1[i] ** 2) * n1[i]
-
-# Plot
-plot(
-    n1, dndt, type = "l", main = "Dynamics of\npopulation 1",
-    xlab = "Population size", ylab = "Derivative of population size"
-)
-
-# Clear variables
-rm(list = ls())
-```
+The answer is provided in `Scripts/2C.R`.
 
 ## Part D: Write new equations
 
@@ -105,9 +91,9 @@ $$
 
 Thus, when the size of population 1 is $\sqrt{\frac{m - r_1}{-k}}$, the population is in equilibrium.
 
-## Part F: Value of *m* where population 1 goes extinct
+## Part F: Value of $m$ where population 1 goes extinct
 
-For a given population size $n_1$, the parameter $m$ must be large enough to make $\frac{dn_1}{dt}$ negative. Thus, the term $m n_1$ must be greater than the term $\left(r_1 - k n_^2 \right) n_1$. We can solve by asserting the equation below and solving for $m$.
+For a given population size $n_1$, the parameter $m$ must be large enough to make $\frac{dn_1}{dt}$ negative. Thus, the term $m n_1$ must be greater than the term $\left(r_1 - k n_1^2 \right) n_1$. We can solve by asserting the equation below and solving for $m$.
 
 $$
 \begin{align}
@@ -120,39 +106,4 @@ Thus, if $m > r_1 - k n_1^2$, the population goes extinct.
 
 ## Part G: Simulate coupled dynamics
 
-```{r}
-# Clear variables
-rm(list = ls())
-
-# Install and mount packages
-# install.packages("deSolve")
-library(deSolve)
-
-# Assign starting state values to vector y
-y <- c(n1 = 4, n2 = 2)
-
-# Assign vector containing time sequence
-times <- seq(0, 10)
-
-# Assign parameters to global environment
-params <- c(r1 = 3, r2 = 0.75, k = 0.03, m = 3)
-
-# Assign function to compute values of derivatives in system
-func <- function(t, state, params) {
-    with(as.list(c(state, params)), {
-        dn1dt <- (r1 - k * n1 ** 2) * n1 - m * n1
-        dn2dt <- (r2 - k * n2 ** 2) * n2 - m * n1  # Is this right? n1 in this equation means pop can go below 0
-        return(list(c(dn1dt, dn2dt)))
-    })
-}
-
-# Run ODE solver for both populations
-out <- ode(y, times, func, params)
-
-# Plot
-plot(
-    out[,1], out[,2], type = "l", ylim = c(min(out[,2], out[,3]), max(out[,2], out[,3])),
-    main = "Populations over time", xlab = "Time", ylab = "Population size", col = "red"
-)
-points(out[,1], out[,3], type = "l", col = "blue")
-```
+The answer is provided in `Scripts/2G.R`.
